@@ -1,0 +1,90 @@
+---
+import { galleryItems } from '../data/galleryItems'
+
+// Define atmospheric gradients per gallery item
+const itemGradients: Record<string, string> = {
+  'gallery-morning-light':   'linear-gradient(135deg, #E8C98C 0%, #C4955A 40%, #8C6035 100%)',
+  'gallery-the-pour':        'linear-gradient(135deg, #5A3E2B 0%, #3d2a1e 50%, #241A14 100%)',
+  'gallery-cardamom-buns':   'linear-gradient(135deg, #D4A96A 0%, #B8894A 40%, #8C6C35 100%)',
+  'gallery-garden-path':     'linear-gradient(135deg, #A7B89A 0%, #6B8A62 40%, #3F5D45 100%)',
+  'gallery-two-cups':        'linear-gradient(135deg, #D8C3A5 0%, #C0A882 40%, #A08060 100%)',
+  'gallery-cottage-exterior':'linear-gradient(135deg, #2d3a28 0%, #3F5D45 40%, #1e2a1a 100%)',
+}
+---
+
+<section id="gallery" class="relative bg-warm-beige overflow-hidden">
+
+  <div class="w-full h-px bg-coffee-brown/10" aria-hidden="true"></div>
+
+  <!-- Section header -->
+  <div class="max-w-6xl mx-auto px-6 md:px-12 pt-20 pb-12">
+    <p class="font-sans text-xs tracking-[0.2em] uppercase text-coffee-brown/50 mb-4">
+      The Cottage
+    </p>
+    <h2 class="font-serif text-coffee-brown text-4xl md:text-5xl font-normal">
+      Through the Lens
+    </h2>
+  </div>
+
+  <!-- Gallery grid -->
+  <div class="gallery-grid max-w-6xl mx-auto px-6 md:px-12 pb-24">
+    {galleryItems.map((item) => (
+      <figure class="gallery-item group relative overflow-hidden" style={`aspect-ratio: ${item.aspectRatio === 'portrait' ? '3/4' : item.aspectRatio === 'square' ? '1/1' : '4/3'}`}>
+
+        <!-- Image placeholder with atmospheric gradient -->
+        <div
+          class="absolute inset-0 transition-transform duration-700 ease-out group-hover:scale-105"
+          style={`background: ${itemGradients[item.id] ?? 'linear-gradient(135deg, #D8C3A5, #A08060)'}`}
+          aria-hidden="true"
+        ></div>
+
+        <!-- Overlay on hover -->
+        <div class="absolute inset-0 bg-dark-espresso/0 group-hover:bg-dark-espresso/20 transition-colors duration-500" aria-hidden="true"></div>
+
+        <!-- Alt text as figcaption (hidden by default) -->
+        <figcaption class="absolute bottom-0 left-0 right-0 px-5 py-4 translate-y-full group-hover:translate-y-0 transition-transform duration-400 ease-out gallery-caption">
+          <p class="font-sans text-xs font-light text-cream/80 leading-snug">
+            {item.imageAlt}
+          </p>
+        </figcaption>
+
+        <!-- Decorative corner mark -->
+        <div class="absolute top-3 left-3 w-3 h-3 border-t border-l border-cream/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" aria-hidden="true"></div>
+
+      </figure>
+    ))}
+  </div>
+
+  <!-- GSAP note -->
+  <p class="text-center font-sans text-xs text-coffee-brown/25 tracking-widest uppercase pb-8" aria-hidden="true">
+    GSAP Horizontal Scroll — Final photography TBD
+  </p>
+
+  <div class="w-full h-px bg-coffee-brown/10" aria-hidden="true"></div>
+
+</section>
+
+<style>
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+
+  @media (min-width: 768px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+    }
+  }
+
+  .gallery-item {
+    border-radius: 2px;
+    cursor: pointer;
+  }
+
+  .gallery-caption {
+    background: linear-gradient(to top, rgba(36, 26, 20, 0.7), transparent);
+    backdrop-filter: blur(4px);
+  }
+</style>

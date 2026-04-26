@@ -1,0 +1,173 @@
+---
+const steps = [
+  {
+    number: '01',
+    name:   'The Beans',
+    desc:   'Single-origin, ethically sourced. Ground to order, every time.',
+  },
+  {
+    number: '02',
+    name:   'The Water',
+    desc:   'Filtered, heated to exactly 93°C. Never rushed to a boil.',
+  },
+  {
+    number: '03',
+    name:   'The Pour',
+    desc:   'Slow. Circular. Forty-five seconds of patience.',
+  },
+  {
+    number: '04',
+    name:   'The Cup',
+    desc:   'Hand-thrown ceramic. Still warm. Yours.',
+  },
+]
+---
+
+<section id="coffee-ritual" class="relative bg-dark-espresso overflow-hidden">
+
+  <!-- Top fade from previous section -->
+  <div class="w-full h-24 ritual-top-fade" aria-hidden="true"></div>
+
+  <div class="max-w-5xl mx-auto px-6 md:px-12 pb-24 md:pb-36">
+
+    <!-- Section header -->
+    <div class="mb-20 md:mb-28">
+      <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage/60 mb-6">
+        How we do it
+      </p>
+      <h2 class="font-serif text-cream text-5xl md:text-7xl font-normal leading-none tracking-tight">
+        The Ritual
+      </h2>
+    </div>
+
+    <!-- Steps -->
+    <div class="space-y-0">
+      {steps.map((step, i) => (
+        <div class="ritual-step group border-t border-warm-beige/10 py-10 md:py-14 grid grid-cols-[3rem_1fr] md:grid-cols-[6rem_1fr_1fr] gap-6 md:gap-12 items-start">
+
+          <!-- Number -->
+          <span class="font-serif text-warm-beige/20 text-4xl md:text-5xl font-normal leading-none group-hover:text-warm-beige/40 transition-colors duration-500">
+            {step.number}
+          </span>
+
+          <!-- Name -->
+          <h3 class="font-serif italic text-cream text-2xl md:text-3xl leading-snug self-center">
+            {step.name}
+          </h3>
+
+          <!-- Description -->
+          <p class="font-sans font-light text-cream/50 text-base md:text-lg leading-relaxed hidden md:block self-center">
+            {step.desc}
+          </p>
+
+          <!-- Mobile description -->
+          <p class="font-sans font-light text-cream/50 text-base leading-relaxed md:hidden col-span-2 col-start-2">
+            {step.desc}
+          </p>
+
+        </div>
+      ))}
+
+      <!-- Last border -->
+      <div class="border-t border-warm-beige/10" aria-hidden="true"></div>
+    </div>
+
+    <!-- R3F Steam effect placeholder -->
+    <div class="relative my-20 flex flex-col items-center">
+      <div class="steam-placeholder" aria-hidden="true">
+        <!-- Cup silhouette -->
+        <div class="cup-silhouette">
+          <div class="cup-body"></div>
+          <div class="cup-saucer"></div>
+        </div>
+        <!-- Steam wisps -->
+        <div class="steam-wisp steam-1"></div>
+        <div class="steam-wisp steam-2"></div>
+        <div class="steam-wisp steam-3"></div>
+        <span class="absolute -bottom-8 left-1/2 -translate-x-1/2 font-sans text-xs text-cream/15 tracking-widest uppercase whitespace-nowrap">
+          R3F Steam Particles
+        </span>
+      </div>
+    </div>
+
+    <!-- Closing quote -->
+    <div class="text-center mt-8">
+      <div class="w-px h-16 bg-warm-beige/15 mx-auto mb-10" aria-hidden="true"></div>
+      <p class="font-serif italic text-warm-beige/70 text-2xl md:text-3xl max-w-xl mx-auto leading-snug">
+        Coffee is not a product.<br />It is a practice.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<style>
+  .ritual-top-fade {
+    background: linear-gradient(to bottom, #F5EFE6, #241A14);
+  }
+
+  .ritual-step {
+    transition: border-color 0.4s ease;
+  }
+
+  /* Cup silhouette */
+  .steam-placeholder {
+    position: relative;
+    width: 120px;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+  }
+
+  .cup-body {
+    width: 70px;
+    height: 60px;
+    background: linear-gradient(135deg, #3a2a1e 0%, #2a1d15 100%);
+    border-radius: 4px 4px 10px 10px;
+    border: 1px solid rgba(216, 195, 165, 0.15);
+    position: relative;
+  }
+  .cup-body::after {
+    content: '';
+    position: absolute;
+    right: -14px;
+    top: 10px;
+    width: 14px;
+    height: 24px;
+    border: 1.5px solid rgba(216, 195, 165, 0.15);
+    border-left: none;
+    border-radius: 0 50% 50% 0;
+  }
+
+  .cup-saucer {
+    width: 90px;
+    height: 8px;
+    background: linear-gradient(135deg, #3a2a1e 0%, #2a1d15 100%);
+    border-radius: 50%;
+    border: 1px solid rgba(216, 195, 165, 0.12);
+    margin-top: 2px;
+  }
+
+  /* Steam wisps */
+  .steam-wisp {
+    position: absolute;
+    width: 2px;
+    border-radius: 2px;
+    background: linear-gradient(to top, rgba(245, 239, 230, 0.25), transparent);
+    animation: steam-rise 3s ease-in-out infinite;
+  }
+
+  .steam-1 { height: 50px; top: 10px; left: 40%; animation-delay: 0s; }
+  .steam-2 { height: 40px; top: 20px; left: 52%; animation-delay: 0.7s; }
+  .steam-3 { height: 35px; top: 25px; left: 32%; animation-delay: 1.4s; }
+
+  @keyframes steam-rise {
+    0%   { transform: translateY(0) scaleX(1); opacity: 0; }
+    20%  { opacity: 0.7; }
+    80%  { opacity: 0.3; }
+    100% { transform: translateY(-40px) scaleX(0.5); opacity: 0; }
+  }
+</style>

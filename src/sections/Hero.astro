@@ -1,0 +1,99 @@
+---
+---
+
+<section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-bg">
+
+  <!-- Spline scene placeholder — will be replaced with <SplineScene> React island -->
+  <div class="absolute inset-0 z-0 spline-placeholder" aria-hidden="true">
+    <div class="absolute inset-0 path-mist"></div>
+    <!-- Warm cottage window glow -->
+    <div class="absolute inset-0 window-glow"></div>
+    <!-- Depth vignette -->
+    <div class="absolute inset-0 depth-vignette"></div>
+    <!-- Placeholder label -->
+    <span class="absolute bottom-8 left-1/2 -translate-x-1/2 font-sans text-xs text-cream/20 tracking-widest uppercase">
+      Spline 3D Scene — Forest Path
+    </span>
+  </div>
+
+  <!-- Foreground content -->
+  <div class="relative z-10 flex flex-col items-center text-center px-6 max-w-4xl mx-auto">
+
+    <!-- Caveat accent -->
+    <p class="font-accent text-rose-clay text-xl mb-8 animate-fade-up" style="letter-spacing: 0.05em;">
+      since 2019
+    </p>
+
+    <!-- Wordmark -->
+    <h1 class="font-serif italic text-cream font-normal leading-none mb-8 animate-fade-up-slow hero-title">
+      The Secret<br />Cottage Café
+    </h1>
+
+    <!-- Thin decorative rule -->
+    <div class="w-px h-12 bg-warm-beige/30 mb-8 animate-fade-up-slow" aria-hidden="true"></div>
+
+    <!-- Subheadline -->
+    <p class="font-sans font-light text-cream/70 text-lg md:text-xl leading-relaxed mb-14 animate-fade-up-late max-w-sm">
+      Hidden at the end of the garden path.<br />Follow the warmth.
+    </p>
+
+    <!-- Scroll prompt -->
+    <div class="flex flex-col items-center gap-3 animate-fade-up-late">
+      <span class="font-sans text-xs tracking-[0.3em] uppercase text-cream/40">Walk in</span>
+      <div class="animate-drift" aria-hidden="true">
+        <svg width="16" height="24" viewBox="0 0 16 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <line x1="8" y1="0" x2="8" y2="18" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.4"/>
+          <polyline points="3,13 8,20 13,13" stroke="#F5EFE6" stroke-width="1" stroke-opacity="0.4" fill="none"/>
+        </svg>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Bottom fade into next section -->
+  <div class="absolute bottom-0 left-0 right-0 h-40 hero-bottom-fade pointer-events-none" aria-hidden="true"></div>
+
+</section>
+
+<style>
+  .hero-bg {
+    background:
+      radial-gradient(ellipse 50% 35% at 50% 52%, rgba(180, 110, 50, 0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 80% 60% at 50% 60%, #1e2a1a 0%, #1a120d 50%, #0e0c09 100%);
+  }
+
+  .path-mist {
+    background: radial-gradient(
+      ellipse 30% 20% at 50% 50%,
+      rgba(215, 195, 165, 0.04) 0%,
+      transparent 100%
+    );
+  }
+
+  .window-glow {
+    background: radial-gradient(
+      ellipse 20% 15% at 50% 54%,
+      rgba(200, 130, 60, 0.08) 0%,
+      transparent 100%
+    );
+  }
+
+  .depth-vignette {
+    background: radial-gradient(
+      ellipse 100% 100% at 50% 50%,
+      transparent 30%,
+      rgba(10, 8, 6, 0.6) 100%
+    );
+  }
+
+  .hero-title {
+    font-size: clamp(3.2rem, 10vw, 9rem);
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    text-shadow: 0 2px 60px rgba(0, 0, 0, 0.5);
+  }
+
+  .hero-bottom-fade {
+    background: linear-gradient(to bottom, transparent, #1a120d 90%);
+  }
+</style>
