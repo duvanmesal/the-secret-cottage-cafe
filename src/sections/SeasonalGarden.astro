@@ -31,7 +31,7 @@ const autumn = seasonalItems.find(s => s.season === 'autumn')!
     <div class="grid md:grid-cols-2 gap-16 items-center">
 
       <!-- Left: text -->
-      <div>
+      <div data-seasonal-left>
         <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-8">
           Autumn · 2025
         </p>
@@ -51,7 +51,7 @@ const autumn = seasonalItems.find(s => s.season === 'autumn')!
       </div>
 
       <!-- Right: featured drink card -->
-      <div class="relative">
+      <div data-seasonal-right class="relative">
         <article class="seasonal-card p-8 md:p-10 relative overflow-hidden">
 
           <!-- Card grain overlay -->

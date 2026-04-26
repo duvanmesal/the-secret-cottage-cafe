@@ -10,11 +10,13 @@ import SeasonalGarden from '../sections/SeasonalGarden.astro'
 import Gallery from '../sections/Gallery.astro'
 import Footer from '../sections/Footer.astro'
 
-import MenuIsland        from '../islands/Menu'
-import CoffeeViewerIsland from '../islands/CoffeeViewer'
+import MenuIsland             from '../islands/Menu'
+import CoffeeViewerIsland    from '../islands/CoffeeViewer'
+import ScrollOrchestratorIsland from '../islands/ScrollOrchestrator'
 ---
 
 <Layout>
+  <ScrollOrchestratorIsland client:load />
   <Nav />
   <Hero />
   <GardenPath />
@@ -31,7 +33,7 @@ import CoffeeViewerIsland from '../islands/CoffeeViewer'
     <div class="max-w-6xl mx-auto px-6 md:px-12 py-24 md:py-36">
 
       <!-- Static section header (Astro) -->
-      <div class="mb-14">
+      <div data-menu-header class="mb-14">
         <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-6">
           What we pour
         </p>
@@ -66,7 +68,7 @@ import CoffeeViewerIsland from '../islands/CoffeeViewer'
     <div class="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
 
       <!-- Static header -->
-      <div class="mb-10">
+      <div data-viewer-header class="mb-10">
         <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-4">
           Explore the cup
         </p>
@@ -94,7 +96,7 @@ import CoffeeViewerIsland from '../islands/CoffeeViewer'
     <div class="w-full h-px bg-warm-beige/80" aria-hidden="true"></div>
     <div class="max-w-2xl mx-auto px-6 md:px-12 py-28 md:py-40 text-center">
 
-      <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-8">
+      <p data-reservation-label class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-8">
         A table awaits
       </p>
 
@@ -102,7 +104,7 @@ import CoffeeViewerIsland from '../islands/CoffeeViewer'
         Reserve your morning.
       </h2>
 
-      <p class="font-sans font-light text-dark-espresso/60 text-lg mb-16">
+      <p data-reservation-sub class="font-sans font-light text-dark-espresso/60 text-lg mb-16">
         Tables are limited. That's intentional.
       </p>
 
