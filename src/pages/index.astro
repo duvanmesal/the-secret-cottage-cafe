@@ -1,11 +1,17 @@
 ---
-import Welcome from '../components/Welcome.astro';
-import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Layout from '../layouts/Layout.astro'
 ---
 
 <Layout>
-	<Welcome />
+  <main class="min-h-screen flex flex-col items-center justify-center bg-[#F5EFE6] px-6 text-center">
+    <p class="font-accent text-[#C98F7A] text-xl mb-6 tracking-wide">est. 2019</p>
+
+    <h1 class="font-serif text-[#5A3E2B] text-5xl sm:text-7xl font-normal leading-tight mb-8">
+      The Secret Cottage Café
+    </h1>
+
+    <p class="font-sans text-[#241A14]/70 text-lg sm:text-xl font-light max-w-md leading-relaxed">
+      Hidden at the end of the garden path.<br />Follow the warmth.
+    </p>
+  </main>
 </Layout>
