@@ -100,6 +100,12 @@ body {
   background: #D8C3A5;
 }
 
+/* Menu card keyboard focus ring */
+.menu-card:focus-visible {
+  outline: 2px solid #5A3E2B;
+  outline-offset: 3px;
+}
+
 /* Custom scrollbar */
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: #F5EFE6; }

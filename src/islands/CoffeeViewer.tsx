@@ -417,7 +417,8 @@ function FilledState({ item, reduced }: FilledProps) {
       <div
         style={{
           position: 'relative',
-          width: 'min(420px, 90vw)',
+          width: '100%',
+          maxWidth: '420px',
           height: '300px',
           flexShrink: 0,
           justifySelf: 'center',

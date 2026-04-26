@@ -39,6 +39,7 @@ function MenuCard({ item, isSelected, onSelect, reduced }: CardProps) {
   return (
     <motion.button
       onClick={() => onSelect(item.id)}
+      className="menu-card"
       aria-pressed={isSelected}
       aria-label={`Select ${item.name}`}
       // Selection-driven spring transitions
@@ -145,8 +146,6 @@ function MenuCard({ item, isSelected, onSelect, reduced }: CardProps) {
 // ─── DrinkDetail ──────────────────────────────────────────────────────────────
 
 function DrinkDetail({ item, reduced }: { item: MenuItem; reduced: boolean }) {
-  const base = reduced ? false : undefined
-
   return (
     <motion.div
       initial={reduced ? false : { opacity: 0, y: 18 }}
@@ -185,11 +184,10 @@ function DrinkDetail({ item, reduced }: { item: MenuItem; reduced: boolean }) {
         {/* Left — name + long description */}
         <div>
           <motion.h3
-            initial={base}
+            initial={reduced ? false : { opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.06 }}
             style={styles.detailName}
-            {...(!reduced && { initial: { opacity: 0, y: 10 } })}
           >
             {item.name}
           </motion.h3>
