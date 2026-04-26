@@ -6,33 +6,35 @@
   <!-- Warm emanating glow from door -->
   <div class="absolute inset-0 door-glow pointer-events-none" aria-hidden="true"></div>
 
-  <!-- CSS Door -->
-  <div class="relative z-10 flex flex-col items-center mb-16" aria-hidden="true">
+  <!-- Ground path leading to door -->
+  <div class="absolute bottom-0 left-1/2 -translate-x-1/2 entrance-path pointer-events-none" aria-hidden="true"></div>
+
+  <!-- CSS Door — scales with viewport -->
+  <div class="relative z-10 flex flex-col items-center mb-12" aria-hidden="true">
     <div class="door-frame">
       <div class="door-inner">
-        <!-- Interior warm light panels -->
         <div class="door-light-top"></div>
         <div class="door-light-bottom"></div>
-        <!-- Door handle -->
         <div class="door-handle"></div>
       </div>
     </div>
-    <!-- Threshold line -->
-    <div class="w-40 h-px bg-coffee-brown/20 mt-0"></div>
+    <div class="door-threshold"></div>
+    <!-- Step -->
+    <div class="door-step"></div>
   </div>
 
   <!-- Text -->
   <div class="relative z-10 text-center px-6">
-    <h2 class="font-serif text-cream text-5xl md:text-7xl font-normal leading-none mb-6 entrance-heading">
+    <h2 class="font-serif text-cream font-normal leading-none mb-5 entrance-heading">
       Come inside.
     </h2>
-    <p class="font-sans font-light text-cream/50 text-lg tracking-wide">
+    <p class="font-sans font-light text-cream/45 text-base md:text-lg tracking-widest">
       The coffee is ready.
     </p>
   </div>
 
   <!-- GSAP placeholder note -->
-  <span class="absolute bottom-8 left-1/2 -translate-x-1/2 font-sans text-xs text-cream/15 tracking-widest uppercase" aria-hidden="true">
+  <span class="absolute bottom-8 left-1/2 -translate-x-1/2 font-sans text-xs text-cream/12 tracking-widest uppercase" aria-hidden="true">
     GSAP Door Open — ScrollTrigger
   </span>
 
@@ -44,68 +46,86 @@
 <style>
   .entrance-bg {
     background:
-      radial-gradient(ellipse 35% 40% at 50% 42%, rgba(180, 110, 45, 0.14) 0%, transparent 65%),
-      linear-gradient(180deg, #1a120d 0%, #241A14 50%, #1f1410 100%);
+      radial-gradient(ellipse 30% 35% at 50% 44%, rgba(190, 118, 48, 0.16) 0%, transparent 65%),
+      linear-gradient(180deg, #1a120d 0%, #241A14 55%, #1f1410 100%);
   }
 
   .door-glow {
     background: radial-gradient(
-      ellipse 40% 50% at 50% 42%,
-      rgba(210, 150, 70, 0.08) 0%,
+      ellipse 45% 55% at 50% 44%,
+      rgba(210, 150, 70, 0.10) 0%,
       transparent 70%
     );
   }
 
+  /* Stone path from door toward viewer */
+  .entrance-path {
+    width: clamp(80px, 14vw, 140px);
+    height: 35vh;
+    background: linear-gradient(
+      180deg,
+      rgba(107, 90, 72, 0.5) 0%,
+      rgba(140, 114, 96, 0.3) 50%,
+      transparent 100%
+    );
+    clip-path: polygon(15% 0%, 85% 0%, 100% 100%, 0% 100%);
+  }
+
+  /* ─── Door — scales via CSS custom property ──────────────────────────── */
   .door-frame {
-    width: 140px;
-    height: 220px;
-    border: 1.5px solid rgba(216, 195, 165, 0.25);
+    --w: clamp(100px, 14vw, 150px);
+    --h: calc(var(--w) * 1.57);
+    width: var(--w);
+    height: var(--h);
+    border: 1.5px solid rgba(216, 195, 165, 0.28);
     border-bottom: none;
-    border-radius: 70px 70px 0 0;
+    border-radius: calc(var(--w) * 0.5) calc(var(--w) * 0.5) 0 0;
+    padding: calc(var(--w) * 0.055);
     position: relative;
-    padding: 8px;
   }
 
   .door-inner {
     width: 100%;
     height: 100%;
-    border-radius: 60px 60px 0 0;
+    border-radius: calc(var(--w) * 0.44) calc(var(--w) * 0.44) 0 0;
     overflow: hidden;
     position: relative;
     background: linear-gradient(
       180deg,
-      rgba(200, 140, 60, 0.22) 0%,
-      rgba(160, 100, 40, 0.14) 40%,
+      rgba(205, 145, 62, 0.26) 0%,
+      rgba(165, 105, 42, 0.16) 45%,
       rgba(90, 62, 43, 0.08) 100%
     );
-    border: 1px solid rgba(216, 195, 165, 0.12);
+    border: 1px solid rgba(216, 195, 165, 0.14);
   }
 
+  /* Upper window panel */
   .door-light-top {
     position: absolute;
-    top: 10%;
-    left: 15%;
-    right: 15%;
-    height: 45%;
+    top: 8%;
+    left: 14%;
+    right: 14%;
+    height: 44%;
     background: linear-gradient(
       180deg,
-      rgba(220, 160, 80, 0.18) 0%,
-      rgba(200, 130, 60, 0.08) 100%
+      rgba(225, 165, 85, 0.22) 0%,
+      rgba(200, 130, 60, 0.10) 100%
     );
     border-radius: 50px 50px 0 0;
-    border: 1px solid rgba(216, 195, 165, 0.12);
+    border: 1px solid rgba(216, 195, 165, 0.14);
   }
 
+  /* Lower door panel */
   .door-light-bottom {
     position: absolute;
     bottom: 0;
-    left: 15%;
-    right: 15%;
-    height: 40%;
+    left: 14%;
+    right: 14%;
+    height: 38%;
     background: linear-gradient(
       180deg,
       rgba(200, 130, 60, 0.08) 0%,
-      rgba(180, 110, 50, 0.14) 100%
+      rgba(180, 110, 50, 0.16) 100%
     );
     border: 1px solid rgba(216, 195, 165, 0.10);
     border-bottom: none;
@@ -113,19 +133,42 @@
 
   .door-handle {
     position: absolute;
-    right: 18%;
+    right: 17%;
     top: 50%;
     transform: translateY(-50%);
-    width: 10px;
-    height: 10px;
+    width: calc(var(--w) * 0.07);
+    height: calc(var(--w) * 0.07);
     border-radius: 50%;
-    background: rgba(216, 195, 165, 0.4);
-    box-shadow: 0 0 8px rgba(220, 160, 80, 0.3);
+    background: rgba(216, 195, 165, 0.45);
+    box-shadow: 0 0 8px rgba(225, 165, 80, 0.35);
+  }
+
+  /* Threshold strip below door */
+  .door-threshold {
+    width: calc(clamp(100px, 14vw, 150px) * 1.15);
+    height: 3px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      rgba(216, 195, 165, 0.3) 30%,
+      rgba(216, 195, 165, 0.3) 70%,
+      transparent
+    );
+  }
+
+  /* Step block */
+  .door-step {
+    width: calc(clamp(100px, 14vw, 150px) * 0.9);
+    height: calc(clamp(100px, 14vw, 150px) * 0.08);
+    background: rgba(90, 62, 43, 0.25);
+    border: 1px solid rgba(216, 195, 165, 0.12);
+    margin-top: 0;
   }
 
   .entrance-heading {
-    text-shadow: 0 0 40px rgba(200, 140, 60, 0.15);
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
     letter-spacing: -0.02em;
+    text-shadow: 0 0 50px rgba(200, 140, 60, 0.14);
   }
 
   .entrance-exit {

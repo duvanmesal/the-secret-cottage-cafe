@@ -163,4 +163,8 @@ const autumn = seasonalItems.find(s => s.season === 'autumn')!
     90%  { opacity: 0.3; }
     100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
   }
+
+  @media (prefers-reduced-motion: reduce) {
+    .leaf { animation: none; opacity: 0; }
+  }
 </style>

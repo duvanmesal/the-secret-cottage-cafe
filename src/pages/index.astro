@@ -10,7 +10,20 @@ import SeasonalGarden from '../sections/SeasonalGarden.astro'
 import Gallery from '../sections/Gallery.astro'
 import Footer from '../sections/Footer.astro'
 
-import { menuItems } from '../data/menuItems'
+import { menuItems, type MenuCategory } from '../data/menuItems'
+
+const categoryOrder: MenuCategory[] = ['seasonal-special', 'espresso', 'cold']
+const categoryLabels: Record<MenuCategory, string> = {
+  'seasonal-special': 'Seasonal Specials',
+  'espresso':         'Espresso',
+  'pour-over':        'Pour-Overs',
+  'cold':             'Cold Brew',
+  'pastry':           'Pastries',
+}
+const grouped = categoryOrder.reduce<Record<string, typeof menuItems>>((acc, cat) => {
+  acc[cat] = menuItems.filter(i => i.category === cat)
+  return acc
+}, {})
 ---
 
 <Layout>
@@ -39,28 +52,41 @@ import { menuItems } from '../data/menuItems'
         </p>
       </div>
 
-      <!-- Static menu preview grid -->
-      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-        {menuItems.map(item => (
-          <div class="menu-card group p-7 relative overflow-hidden" style={`border-color: ${item.accentColor}22`}>
-            <div class="absolute top-0 left-0 w-full h-px menu-card-line" style={`background: ${item.accentColor}33`} aria-hidden="true"></div>
-            <div
-              class="w-10 h-10 rounded-full mb-5 flex-shrink-0 cup-dot"
-              style={`background: ${item.cupColor}`}
-              aria-hidden="true"
-            ></div>
-            <h3 class="font-serif text-coffee-brown text-xl font-normal leading-snug mb-2">
-              {item.name}
-            </h3>
-            <p class="font-sans font-light text-dark-espresso/55 text-sm leading-relaxed mb-5">
-              {item.shortDescription}
-            </p>
-            <div class="flex items-center justify-between">
-              <span class="font-sans text-sm text-dark-espresso/40 tracking-wide">{item.price}</span>
-              <span class="font-sans text-xs tracking-widest uppercase text-soft-sage/60 group-hover:text-rose-clay transition-colors duration-300">
-                View →
+      <!-- Editorial menu list — grouped by category -->
+      <div class="menu-list max-w-2xl">
+        {categoryOrder.map(cat => grouped[cat]?.length > 0 && (
+          <div class="menu-category mb-12 last:mb-0">
+
+            <!-- Category header -->
+            <div class="flex items-center gap-4 mb-6">
+              <span class="font-sans text-xs tracking-[0.22em] uppercase text-soft-sage">
+                {categoryLabels[cat]}
               </span>
+              <div class="flex-1 h-px bg-warm-beige/80"></div>
             </div>
+
+            <!-- Items -->
+            <div class="space-y-0">
+              {grouped[cat].map((item, idx) => (
+                <div class="menu-row group">
+                  <div class="menu-row-main">
+                    <h3 class="menu-item-name font-serif italic text-coffee-brown text-xl font-normal leading-snug group-hover:text-dark-espresso transition-colors duration-300">
+                      {item.name}
+                    </h3>
+                    <span class="menu-item-price font-sans text-sm text-dark-espresso/40 tracking-wide flex-shrink-0">
+                      {item.price}
+                    </span>
+                  </div>
+                  <p class="font-sans font-light text-dark-espresso/50 text-sm leading-relaxed mt-1 mb-0">
+                    {item.shortDescription}
+                  </p>
+                  {idx < grouped[cat].length - 1 && (
+                    <div class="menu-row-divider"></div>
+                  )}
+                </div>
+              ))}
+            </div>
+
           </div>
         ))}
       </div>
@@ -202,19 +228,32 @@ import { menuItems } from '../data/menuItems'
 </Layout>
 
 <style>
-  /* Menu cards */
-  .menu-card {
-    border: 1px solid rgba(216, 195, 165, 0.5);
-    border-radius: 2px;
-    background: #F5EFE6;
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
+  /* Editorial menu list */
+  .menu-list {
+    width: 100%;
   }
-  .menu-card:hover {
-    box-shadow: 0 8px 32px rgba(90, 62, 43, 0.08);
-    transform: translateY(-2px);
+
+  .menu-row {
+    padding: 1.1rem 0;
+    cursor: default;
   }
-  .cup-dot {
-    border: 1px solid rgba(90, 62, 43, 0.12);
+
+  .menu-row-main {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .menu-item-name {
+    flex: 1;
+  }
+
+  .menu-row-divider {
+    width: 100%;
+    height: 1px;
+    background: rgba(216, 195, 165, 0.55);
+    margin-top: 1rem;
   }
 
   /* Viewer placeholder */

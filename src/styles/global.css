@@ -38,14 +38,14 @@ body {
   box-sizing: border-box;
 }
 
-/* Scroll indicator float */
+/* ─── Animations ─────────────────────────────────────────────────────────── */
+
 @keyframes drift-down {
   0%, 100% { transform: translateY(0); opacity: 0.9; }
   50% { transform: translateY(10px); opacity: 0.4; }
 }
 .animate-drift { animation: drift-down 2.8s ease-in-out infinite; }
 
-/* Fade in on load */
 @keyframes fade-up {
   from { opacity: 0; transform: translateY(18px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -54,8 +54,31 @@ body {
 .animate-fade-up-slow { animation: fade-up 1.4s ease-out 0.3s both; }
 .animate-fade-up-late { animation: fade-up 1.0s ease-out 0.7s both; }
 
-/* Noise grain overlay (subtle) */
+/* Honour reduced-motion preference — disable all keyframe animations */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  /* Ensure fade-up elements are visible immediately */
+  .animate-fade-up,
+  .animate-fade-up-slow,
+  .animate-fade-up-late {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ─── Noise grain overlay ─────────────────────────────────────────────────
+   isolation: isolate creates a stacking context so z-index: -1 on ::after
+   is contained within the section, never bleeding behind the section bg.
+──────────────────────────────────────────────────────────────────────────── */
 .noise-overlay {
+  isolation: isolate;
   position: relative;
 }
 .noise-overlay::after {
@@ -65,10 +88,12 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   opacity: 0.025;
   pointer-events: none;
-  z-index: 1;
+  /* z-index: -1 keeps the texture behind all content within the stacking context */
+  z-index: -1;
 }
 
-/* Thin editorial divider */
+/* ─── Shared utilities ───────────────────────────────────────────────────── */
+
 .divider-warm {
   width: 40px;
   height: 1px;
