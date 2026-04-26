@@ -10,7 +10,8 @@ import SeasonalGarden from '../sections/SeasonalGarden.astro'
 import Gallery from '../sections/Gallery.astro'
 import Footer from '../sections/Footer.astro'
 
-import MenuIsland from '../islands/Menu'
+import MenuIsland        from '../islands/Menu'
+import CoffeeViewerIsland from '../islands/CoffeeViewer'
 ---
 
 <Layout>
@@ -55,38 +56,31 @@ import MenuIsland from '../islands/Menu'
     <div class="w-full h-px bg-warm-beige/80" aria-hidden="true"></div>
   </section>
 
-  <!-- ─── Section 7: 3D Coffee Viewer ──────────────────────────────────────
-       React island (CoffeeViewer.tsx) will replace this placeholder.
-       Uses: React + Spline + R3F steam
+  <!-- ─── Section 7: Coffee Viewer ────────────────────────────────────────
+       React island — CoffeeViewer.tsx · reads selectedCoffeeId via Zustand
+       Spline 3D scene replaces the CSS cup when ready.
   ───────────────────────────────────────────────────────────────────────── -->
-  <section id="coffee-viewer" class="relative bg-cream py-24 md:py-36">
-    <div class="max-w-3xl mx-auto px-6 text-center">
+  <section id="coffee-viewer" class="relative bg-cream">
+    <div class="w-full h-px bg-warm-beige/80" aria-hidden="true"></div>
 
-      <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-8">
-        Select a drink above to explore
-      </p>
+    <div class="max-w-6xl mx-auto px-6 md:px-12 py-20 md:py-28">
 
-      <!-- Cup viewer placeholder -->
-      <div class="relative mx-auto viewer-placeholder">
-        <div class="absolute inset-0 viewer-bg rounded-full" aria-hidden="true"></div>
-        <div class="relative z-10 flex flex-col items-center justify-center h-full">
-          <div class="viewer-cup" aria-hidden="true">
-            <div class="viewer-cup-body"></div>
-            <div class="viewer-cup-saucer"></div>
-          </div>
-          <p class="font-sans text-xs text-coffee-brown/30 tracking-widest uppercase mt-8">
-            Spline 3D — Coffee Viewer
-          </p>
-          <p class="font-sans text-xs text-coffee-brown/20 mt-1">
-            Turn me.
-          </p>
-        </div>
+      <!-- Static header -->
+      <div class="mb-10">
+        <p class="font-sans text-xs tracking-[0.2em] uppercase text-soft-sage mb-4">
+          Explore the cup
+        </p>
+        <h2 class="font-serif text-coffee-brown text-4xl md:text-5xl font-normal leading-none">
+          In your hands.
+        </h2>
       </div>
 
-      <p class="font-sans text-xs text-coffee-brown/20 tracking-widest uppercase mt-10" aria-hidden="true">
-        React Island — CoffeeViewer.tsx · Spline + R3F Steam · Zustand
-      </p>
+      <!-- Interactive viewer island -->
+      <CoffeeViewerIsland client:visible />
+
     </div>
+
+    <div class="w-full h-px bg-warm-beige/80" aria-hidden="true"></div>
   </section>
 
   <SeasonalGarden />
@@ -180,55 +174,6 @@ import MenuIsland from '../islands/Menu'
 </Layout>
 
 <style>
-  /* Viewer placeholder */
-  .viewer-placeholder {
-    width: min(440px, 90vw);
-    height: min(440px, 90vw);
-  }
-  .viewer-bg {
-    background: radial-gradient(
-      ellipse at center,
-      #E8DDD0 0%,
-      #D8C3A5 60%,
-      #C4A882 100%
-    );
-    opacity: 0.5;
-  }
-  .viewer-cup {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  .viewer-cup-body {
-    width: 80px;
-    height: 68px;
-    background: linear-gradient(160deg, #E8DDD0 0%, #D0B896 100%);
-    border-radius: 6px 6px 14px 14px;
-    border: 1.5px solid rgba(90, 62, 43, 0.15);
-    box-shadow: 0 8px 24px rgba(90, 62, 43, 0.12);
-    position: relative;
-  }
-  .viewer-cup-body::after {
-    content: '';
-    position: absolute;
-    right: -16px;
-    top: 12px;
-    width: 16px;
-    height: 28px;
-    border: 1.5px solid rgba(90, 62, 43, 0.15);
-    border-left: none;
-    border-radius: 0 50% 50% 0;
-  }
-  .viewer-cup-saucer {
-    width: 104px;
-    height: 10px;
-    background: linear-gradient(160deg, #E8DDD0 0%, #D0B896 100%);
-    border-radius: 50%;
-    border: 1.5px solid rgba(90, 62, 43, 0.12);
-    margin-top: 3px;
-    box-shadow: 0 4px 12px rgba(90, 62, 43, 0.08);
-  }
-
   /* Reservation form */
   .reservation-field {
     display: flex;
