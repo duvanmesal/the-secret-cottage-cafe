@@ -53,9 +53,11 @@ interface FallbackProps {
   description?: string
   theme: FallbackTheme
   state: PlaceholderState
+  /** Pure ambient mode — hides corner marks and title card; aria-hidden */
+  atmospheric?: boolean
 }
 
-function FallbackPlaceholder({ title, description, theme, state }: FallbackProps) {
+function FallbackPlaceholder({ title, description, theme, state, atmospheric }: FallbackProps) {
   const isDark =
     theme.mood === 'warm-dark' ||
     theme.mood === 'rich-dark' ||
@@ -69,8 +71,9 @@ function FallbackPlaceholder({ title, description, theme, state }: FallbackProps
 
   return (
     <div
-      role="img"
-      aria-label={`${title} — scene placeholder`}
+      role={atmospheric ? undefined : 'img'}
+      aria-label={atmospheric ? undefined : `${title} — scene placeholder`}
+      aria-hidden={atmospheric || undefined}
       style={{
         position: 'absolute',
         inset: 0,
@@ -126,13 +129,18 @@ function FallbackPlaceholder({ title, description, theme, state }: FallbackProps
         }}
       />
 
-      {/* Corner marks */}
-      <span aria-hidden="true" style={cornerStyle('top-left',     cornerStroke)} />
-      <span aria-hidden="true" style={cornerStyle('top-right',    cornerStroke)} />
-      <span aria-hidden="true" style={cornerStyle('bottom-left',  cornerStroke)} />
-      <span aria-hidden="true" style={cornerStyle('bottom-right', cornerStroke)} />
+      {/* Corner marks — skipped in atmospheric mode */}
+      {!atmospheric && (
+        <>
+          <span aria-hidden="true" style={cornerStyle('top-left',     cornerStroke)} />
+          <span aria-hidden="true" style={cornerStyle('top-right',    cornerStroke)} />
+          <span aria-hidden="true" style={cornerStyle('bottom-left',  cornerStroke)} />
+          <span aria-hidden="true" style={cornerStyle('bottom-right', cornerStroke)} />
+        </>
+      )}
 
-      {/* Title card */}
+      {/* Title card — skipped in atmospheric mode */}
+      {!atmospheric && (
       <div
         style={{
           position: 'absolute',
@@ -217,6 +225,7 @@ function FallbackPlaceholder({ title, description, theme, state }: FallbackProps
           </p>
         )}
       </div>
+      )}
     </div>
   )
 }
@@ -256,6 +265,9 @@ export interface SplineSceneProps {
   className?: string
   /** Visual theme for the placeholder */
   fallbackTheme: FallbackTheme
+  /** Pure ambient mode — placeholder shows only the colour layers, no title
+   *  card or corner marks. Use when the scene is a background, not content. */
+  atmospheric?: boolean
 }
 
 export default function SplineScene({
@@ -264,6 +276,7 @@ export default function SplineScene({
   description,
   className,
   fallbackTheme,
+  atmospheric,
 }: SplineSceneProps) {
   const containerRef = useRef<HTMLDivElement>(null)
   const [mounted, setMounted]         = useState(false)
@@ -335,6 +348,7 @@ export default function SplineScene({
           description={description}
           theme={fallbackTheme}
           state={placeholderState}
+          atmospheric={atmospheric}
         />
       </div>
 

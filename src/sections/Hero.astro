@@ -1,19 +1,23 @@
 ---
+import SplineScene from '../islands/SplineScene'
+import { splineScenes } from '../data/splineScenes'
+
+const cottage = splineScenes.cottageExterior
 ---
 
 <section id="hero" class="relative min-h-screen flex flex-col items-center justify-center overflow-hidden hero-bg">
 
-  <!-- Spline scene placeholder — will be replaced with <SplineScene> React island -->
+  <!-- Spline cottage scene — atmospheric (no title card behind hero text).
+       Renders the premium fallback placeholder while sceneUrl is null. -->
   <div class="absolute inset-0 z-0" aria-hidden="true">
-    <div class="absolute inset-0 path-mist"></div>
-    <!-- Warm cottage window glow -->
-    <div class="absolute inset-0 window-glow"></div>
-    <!-- Depth vignette -->
-    <div class="absolute inset-0 depth-vignette"></div>
-    <!-- Placeholder label -->
-    <span class="absolute bottom-8 left-1/2 -translate-x-1/2 font-sans text-xs text-cream/20 tracking-widest uppercase">
-      Spline 3D Scene — Forest Path
-    </span>
+    <SplineScene
+      client:only="react"
+      sceneUrl={cottage.sceneUrl}
+      title={cottage.label}
+      description={cottage.description}
+      fallbackTheme={cottage.fallbackTheme}
+      atmospheric
+    />
   </div>
 
   <!-- Foreground content -->
@@ -60,30 +64,6 @@
     background:
       radial-gradient(ellipse 50% 35% at 50% 52%, rgba(180, 110, 50, 0.10) 0%, transparent 70%),
       radial-gradient(ellipse 80% 60% at 50% 60%, #1e2a1a 0%, #1a120d 50%, #0e0c09 100%);
-  }
-
-  .path-mist {
-    background: radial-gradient(
-      ellipse 30% 20% at 50% 50%,
-      rgba(215, 195, 165, 0.04) 0%,
-      transparent 100%
-    );
-  }
-
-  .window-glow {
-    background: radial-gradient(
-      ellipse 20% 15% at 50% 54%,
-      rgba(200, 130, 60, 0.08) 0%,
-      transparent 100%
-    );
-  }
-
-  .depth-vignette {
-    background: radial-gradient(
-      ellipse 100% 100% at 50% 50%,
-      transparent 30%,
-      rgba(10, 8, 6, 0.6) 100%
-    );
   }
 
   .hero-title {
