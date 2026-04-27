@@ -1,5 +1,7 @@
 import { motion, AnimatePresence, useReducedMotion } from 'motion/react'
 import { menuItems, type MenuItem } from '../data/menuItems'
+import { splineScenes, type SplineSceneKey } from '../data/splineScenes'
+import SplineScene from './SplineScene'
 import { useCafeStore } from '../store/useCafeStore'
 
 // ─── Colour utilities ─────────────────────────────────────────────────────────
@@ -273,6 +275,11 @@ function FilledState({ item, reduced }: FilledProps) {
   const season  = item.visualTheme.season
   const palette = item.visualTheme.palette
 
+  const scene = (item.splineSceneKey in splineScenes)
+    ? splineScenes[item.splineSceneKey as SplineSceneKey]
+    : undefined
+  const hasLiveScene = typeof scene?.sceneUrl === 'string' && scene.sceneUrl.length > 0
+
   return (
     <div
       className="md:grid-cols-[1fr_auto]"
@@ -408,55 +415,66 @@ function FilledState({ item, reduced }: FilledProps) {
             textTransform: 'uppercase',
             color: 'rgba(36,26,20,0.22)',
           }}>
-            Spline 3D scene · coming soon
+            {hasLiveScene ? 'Spline 3D scene · live' : 'Spline 3D scene · coming soon'}
           </p>
         </motion.div>
       </div>
 
-      {/* ── Right: cup stage with floaters ── */}
+      {/* ── Right: Spline scene (when URL is live) or CSS cup stage ── */}
       <div
         style={{
           position: 'relative',
           width: '100%',
           maxWidth: '420px',
-          height: '300px',
+          height: hasLiveScene ? '320px' : '300px',
           flexShrink: 0,
           justifySelf: 'center',
         }}
       >
-        {/* Ambient glow behind cup */}
-        <div style={{
-          position: 'absolute',
-          inset: 0,
-          background: `radial-gradient(ellipse 65% 60% at 50% 55%, ${hexWithAlpha(item.cupColor, 0.22)} 0%, transparent 70%)`,
-          pointerEvents: 'none',
-        }} />
-
-        {/* The ceramic cup — centred */}
-        <motion.div
-          key={`cup-${item.id}`}
-          initial={reduced ? false : { opacity: 0, scale: 0.88, y: 12 }}
-          animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
-          style={{
-            position: 'absolute',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%, -48%)',
-          }}
-        >
-          <CeramicCup item={item} reduced={reduced} />
-        </motion.div>
-
-        {/* Floating ingredient labels */}
-        {item.floatingElements.slice(0, 6).map((el, i) => (
-          <FloatingIngredient
-            key={`${item.id}-${el}`}
-            label={el}
-            index={i}
-            accentColor={item.accentColor}
-            reduced={reduced}
+        {hasLiveScene && scene ? (
+          <SplineScene
+            sceneUrl={scene.sceneUrl}
+            title={scene.label}
+            description={scene.description}
+            fallbackTheme={scene.fallbackTheme}
           />
-        ))}
+        ) : (
+          <>
+            {/* Ambient glow behind cup */}
+            <div style={{
+              position: 'absolute',
+              inset: 0,
+              background: `radial-gradient(ellipse 65% 60% at 50% 55%, ${hexWithAlpha(item.cupColor, 0.22)} 0%, transparent 70%)`,
+              pointerEvents: 'none',
+            }} />
+
+            {/* The ceramic cup — centred */}
+            <motion.div
+              key={`cup-${item.id}`}
+              initial={reduced ? false : { opacity: 0, scale: 0.88, y: 12 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.52, ease: [0.22, 1, 0.36, 1] }}
+              style={{
+                position: 'absolute',
+                top: '50%', left: '50%',
+                transform: 'translate(-50%, -48%)',
+              }}
+            >
+              <CeramicCup item={item} reduced={reduced} />
+            </motion.div>
+
+            {/* Floating ingredient labels */}
+            {item.floatingElements.slice(0, 6).map((el, i) => (
+              <FloatingIngredient
+                key={`${item.id}-${el}`}
+                label={el}
+                index={i}
+                accentColor={item.accentColor}
+                reduced={reduced}
+              />
+            ))}
+          </>
+        )}
       </div>
     </div>
   )

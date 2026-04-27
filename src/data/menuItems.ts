@@ -48,7 +48,7 @@ export const menuItems: MenuItem[] = [
     cupColor: '#E8DDD0',
     accentColor: '#C98F7A',
     floatingElements: ['lavender sprig', 'honey drip', 'steam curl'],
-    splineSceneKey: 'cup-honey-lavender',
+    splineSceneKey: 'honeyLavenderLatte',
   },
   {
     id: 'forest-mocha',
@@ -73,7 +73,7 @@ export const menuItems: MenuItem[] = [
     cupColor: '#3A2A1E',
     accentColor: '#5A3E2B',
     floatingElements: ['cacao dust', 'cardamom pod', 'oak leaf', 'steam'],
-    splineSceneKey: 'cup-forest-mocha',
+    splineSceneKey: 'forestMocha',
   },
   {
     id: 'rose-vanilla-cappuccino',
@@ -98,7 +98,7 @@ export const menuItems: MenuItem[] = [
     cupColor: '#F0E8E0',
     accentColor: '#C98F7A',
     floatingElements: ['rose petal', 'vanilla pod', 'foam cloud', 'steam'],
-    splineSceneKey: 'cup-rose-vanilla',
+    splineSceneKey: 'roseVanillaCappuccino',
   },
   {
     id: 'cinnamon-hearth-latte',
@@ -123,7 +123,7 @@ export const menuItems: MenuItem[] = [
     cupColor: '#C8A882',
     accentColor: '#5A3E2B',
     floatingElements: ['cinnamon stick', 'star anise', 'steam', 'nutmeg dust'],
-    splineSceneKey: 'cup-cinnamon-hearth',
+    splineSceneKey: 'cinnamonHearthLatte',
   },
   {
     id: 'garden-cream-cold-brew',
@@ -147,6 +147,6 @@ export const menuItems: MenuItem[] = [
     cupColor: '#D4E0D0',
     accentColor: '#3F5D45',
     floatingElements: ['herb sprig', 'cream swirl', 'ice cube', 'condensation'],
-    splineSceneKey: 'cup-garden-cold-brew',
+    splineSceneKey: 'gardenCreamColdBrew',
   },
 ]
